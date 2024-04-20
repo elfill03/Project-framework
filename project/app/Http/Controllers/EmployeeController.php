@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Employee;
+
 
 class EmployeeController extends Controller
 {
@@ -15,20 +17,13 @@ class EmployeeController extends Controller
     {
         $pageTitle = 'Employee List';
 
-        // RAW SQL QUERY
-        // $employees = DB::select('
-        // select *, employees.id as employee_id, positions.name as position_name
-        // from employees left join positions on employees.position_id = positions.id
-        // ');
+        // ELOQUENT
+        $employees = Employee::all();
 
-        // QUERY BUILDER
-        $employees = DB::table('employees')
-        ->select('employees.id as employee_id', 'employees.firstname', 'employees.lastname', 'employees.email', 'employees.age', 'positions.name as position_name')
-        ->leftJoin('positions', 'employees.position_id', '=', 'positions.id')
-        ->get();
-
-        return view('employee.index', ['pageTitle' => $pageTitle, 'employees' => $employees]);
-
+        return view('employee.index', [
+            'pageTitle' => $pageTitle,
+            'employees' => $employees
+        ]);
     }
 
     /**

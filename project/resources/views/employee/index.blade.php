@@ -67,25 +67,17 @@ mb-0 bg-white">
                             <td>{{ $employee->lastname }}</td>
                             <td>{{ $employee->email }}</td>
                             <td>{{ $employee->age }}</td>
-                            <td>{{ $employee->position_name }}</td>
+                            <td>{{ $employee->position->name }}</td>
                             <td>
+                                {{-- ACTIONS SECTION --}}
                                 <div class="d-flex">
-                                    <a href="{{ route('employees.show', ['employee' => $employee->employee_id]) }}"
-                                        class="btn btn-outline-dark btn-sm me-2"><i
-                                            class="bi-person-lines-fill"></i></a>
-                                    <a href="{{ route('employees.edit', ['id' => $employee->employee_id]) }}"
-                                        class="btn btn-outline-dark btn-sm me-2"><i
-                                            class="bi-pencil-square"></i></a>
+                                    <a href="{{ route('employees.show', ['employee' => $employee->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
+                                    <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                     <div>
-                                        <form
-                                            action="{{ route('employees.destroy', ['employee' => $employee->employee_id]) }}"
-                                            method="POST">
+                                        <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit"
-                                                class="btn
-                    btn-outline-dark btn-sm me-2"><i
-                                                    class="bi-trash"></i></button>
+                                            <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -93,6 +85,7 @@ mb-0 bg-white">
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
         </div>
     </div>
