@@ -32,13 +32,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $pageTitle = 'Create Employee';
-
-        // RAW SQL Query
-        // $positions = DB::select('select * from positions');
-
-        // QUERY BUILDER
-        $positions = DB::table('positions')->get();
-
+        // ELOQUENT
+        $positions = Position::all();
         return view('employee.create', compact('pageTitle', 'positions'));
     }
 
@@ -58,20 +53,17 @@ class EmployeeController extends Controller
             'email' => 'required|email',
             'age' => 'required|numeric',
         ], $messages);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        // INSERT QUERY
-        DB::table('employees')->insert([
-            'firstname' => $request->firstName,
-            'lastname' => $request->lastName,
-            'email' => $request->email,
-            'age' => $request->age,
-            'position_id' => $request->position,
-        ]);
-
+        // ELOQUENT
+        $employee = new Employee;
+        $employee->firstname = $request->firstName;
+        $employee->lastname = $request->lastName;
+        $employee->email = $request->email;
+        $employee->age = $request->age;
+        $employee->position_id = $request->position;
+        $employee->save();
         return redirect()->route('employees.index');
     }
 
