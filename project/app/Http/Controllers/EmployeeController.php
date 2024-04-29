@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Employee;
+use App\Models\Position;
 
 
 class EmployeeController extends Controller
@@ -89,7 +90,7 @@ class EmployeeController extends Controller
         //     ->first();
 
         // Eloquent Query
-        $employee = Employee::find(id);
+        $employee = Employee::find($id);
 
         return view('employee.show', compact('pageTitle', 'employee'));
     }
