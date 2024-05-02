@@ -120,7 +120,6 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         $messages = [
             'required' => ':Attribute harus diisi.',
             'email' => 'Isi :attribute dengan format yang benar',
@@ -144,8 +143,6 @@ class EmployeeController extends Controller
         $employee->position_id = $request->position;
         $employee->save();
         return redirect()->route('employees.index');
-
-
     }
 
     /**
